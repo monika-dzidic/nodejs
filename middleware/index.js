@@ -1,7 +1,7 @@
-// Rate limiting
-const rateLimiter = require("./request-limiter");
+// Request limiting
+const requestLimiter = require("./request-limiter");
 
 // Error handling
 const errorHandler = require("./error-handler");
 
-module.exports = { rateLimiter, errorHandler };
+module.exports = { requestLimiter, errorHandler };

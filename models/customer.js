@@ -78,7 +78,7 @@ Customer.remove = (id, result) => {
             return;
         }
 
-        result(res, null);
+        result({ id: id }, null);
     });
 };
 

@@ -7,13 +7,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Middleware
 const middleware = require('./middleware/index');
-app.use(middleware.rateLimiter, middleware.errorHandler)
+app.use(middleware.requestLimiter);
 
-// Routes
 require("./routes/customer")(app);
 
+app.use(middleware.errorHandler);
+
 app.listen(appConfig.PORT, () => {
-    console.log("Server is running on port 3000.");
+    console.log(`Server is running on port ${appConfig.PORT}.`);
 });
