@@ -1,7 +1,7 @@
 # Welcome to my NodeJS REST API
 
 ## Setup and start
-* Start app
+* Start redis server
 * Install project dependencies
 ```bash
 npm install
