@@ -6,7 +6,7 @@
 ```bash
 npm install
 ```
-* Start app in development mode on port 3000
+* Start app with [nodemon](https://www.npmjs.com/package/nodemon) in development mode on port 3000
 ```bash
 npm run start
 ```
