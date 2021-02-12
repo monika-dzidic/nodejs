@@ -75,7 +75,8 @@ exports.addProduct = (req, res, next) => {
     }
 
     User.addProductToUser(req.params.userId, req.body.productId, (data, err) => {
-        if (err) next(Error.intervalServerError());
+        if (err && !err.errno == 1452) next(Error.intervalServerError());
+        else if (err) next(Error.badRequest());
         else res.send(data);
     });
 };
@@ -92,7 +93,7 @@ exports.update = (req, res, next) => {
         return;
     }
 
-    const user = new User(req.body.email, req, body.name, req.body.active)
+    const user = new User(req.body.email, req.body.name, req.body.active)
     if (!user.email.length) {
         next(Error.badRequest('Missing user email'));
         return;

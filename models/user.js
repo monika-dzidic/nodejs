@@ -5,7 +5,7 @@ class User {
     constructor(email, name, active) {
         this.email = email ? email.trim() : '';
         this.name = name ? name.trim() : '';
-        this.active = isFalsy(active) ? 0 : 1;
+        this.active = isFalsy(active) ? 0 : active;
     }
 
     static getAll = result => {
@@ -36,7 +36,11 @@ class User {
     }
 
     static findProductsByUserId = (userId, result) => {
-        sql.query(`SELECT * FROM user_product WHERE user_id = ${userId}`, (err, res) => {
+        sql.query(`SELECT product_id,
+            (SELECT name FROM product WHERE id=product_id) AS name, 
+            count(product_id) AS count 
+            FROM user_product WHERE user_id=${userId} GROUP BY product_id;
+        `, (err, res) => {
             if (err) {
                 result(null, err);
                 return;
@@ -61,7 +65,6 @@ class User {
             result({ id: res.insertId, ...newUser }, null);
         });
     }
-
 
     static addProductToUser = (userId, productId, result) => {
         sql.query(`INSERT INTO user_product (user_id, product_id) VALUES (${userId}, ${productId})`, (err, res) => {

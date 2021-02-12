@@ -4,7 +4,7 @@ const sql = require("./db.js");
 class Product {
     constructor(name, active) {
         this.name = name ? name.trim() : '';
-        this.active = isFalsy(active) ? 0 : 1;
+        this.active = isFalsy(active) ? 0 : active;
     }
 
     static getAll = result => {
