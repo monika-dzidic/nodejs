@@ -10,7 +10,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const middleware = require('./middleware/index');
 app.use(middleware.requestLimiter);
 
-require("./routes/customer")(app);
+require("./routes/user")(app, appConfig.API_ROUTE);
+require("./routes/product")(app, appConfig.API_ROUTE);
 
 app.use(middleware.errorHandler);
 
