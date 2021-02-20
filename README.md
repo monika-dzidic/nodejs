@@ -14,10 +14,9 @@ npm run start
 ## About
 * [MySql](https://www.mysql.com/) as database
 * [Redis](https://redis.io/) for limiting API requests
+* [JWT](https://www.npmjs.com/package/jsonwebtoken) for authentication or authorization
 
 ## Todo
-* Add CORS middleware
-* Create tests 
-* Create request logger for production environment
+* Add Redis blacklist for invalid tokens on logout and token refresh
 
 Learning project repository as every other repo on this profile, any feedback is greatly appreciated!
