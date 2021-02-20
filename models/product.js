@@ -1,49 +1,49 @@
-const { isFalsy } = require("../util/util.js");
-const sql = require("./db.js");
+const sql = require("./db.js")
+const { isFalsy } = require("../util/util.js")
 
 class Product {
     constructor(name, active) {
-        this.name = name ? name.trim() : '';
-        this.active = isFalsy(active) ? 0 : active;
+        this.name = name ? name.trim() : ''
+        this.active = isFalsy(active) ? true : active
     }
 
     static getAll = result => {
         sql.query("SELECT * FROM product", (err, res) => {
             if (err) {
-                result(null, err);
-                return;
+                result(err, null)
+                return
             }
 
-            result(null, res);
-        });
+            result(null, res)
+        })
     }
 
-    static findById = (productId, result) => {
-        sql.query(`SELECT * FROM product WHERE id = ${productId}`, (err, res) => {
+    static findByName = (productName, result) => {
+        sql.query(`SELECT * FROM product WHERE name = ${productName}`, (err, res) => {
             if (err) {
-                result(null, err);
-                return;
+                result(err, null)
+                return
             }
 
             if (res.length) {
-                result(res[0], null);
-                return;
+                result(null, res[0])
+                return
             }
 
-            result(null, null);
-        });
+            result(null, null)
+        })
     }
 
     static create = (newProduct, result) => {
         sql.query("INSERT INTO product SET ?", newProduct, (err, res) => {
             if (err) {
-                result(null, err);
-                return;
+                result(err, null)
+                return
             }
 
-            result({ id: res.insertId, ...newProduct }, null);
-        });
+            result(null, { ...newProduct })
+        })
     }
 }
 
-module.exports = Product;
+module.exports = Product

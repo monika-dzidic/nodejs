@@ -1,25 +1,18 @@
 module.exports = (app, APIRoute) => {
-    const user = require("../controllers/user");
+    const user = require("../controllers/user")
     const root = `${APIRoute}/user`
 
-    // Retrieve all users
-    app.get(`${root}`, user.findAll);
+    const authenticateJWT = require("../middleware/jwt-token")
 
-    // Retrieve a single user
-    app.get(`${root}/:userId`, user.findOne);
+    // Retrieve all users
+    app.get(`${root}`, authenticateJWT, user.findAll)
 
     // Retrieve user products
-    app.get(`${root}/:userId/product`, user.findUserProducts);
-
-    // Create a new user
-    app.post(`${root}`, user.create);
+    app.get(`${root}/products`, authenticateJWT, user.findUserProducts)
 
     // Add product to user
-    app.post(`${root}/:userId/product`, user.addProduct);
+    app.post(`${root}/product/:productId`, authenticateJWT, user.addProduct)
 
     // Update a user
-    app.put(`${root}/:userId`, user.update);
-
-    // Delete a user
-    app.delete(`${root}/:userId`, user.delete);
-};
+    app.put(`${root}`, authenticateJWT, user.update)
+}
